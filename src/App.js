@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './Pages/Home/Home';
+import Profile from './Pages/Profile/Profile';
+import {Routes, BrowserRouter, Route, Navigate} from 'react-router-dom'
+import Login from './Pages/Login/Login';
+import Signup from './Pages/Register/Signup';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const userDetails = useSelector((state)=>state.user)
+  let user = userDetails.user
+  console.log(user)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <BrowserRouter>
+    <Routes>
+    <Route path='/' element={<Home />}></Route>
+    <Route path='/profil/:id' element={<Profile />}></Route>
+    <Route path='/login' element={user !== null ? <Navigate to={'/'} /> : <Login />}></Route>
+    <Route path='/signup' element={ user !== null ? <Navigate to={'/'} /> : <Signup />}></Route>
+    </Routes>
+    </BrowserRouter>
+{/* Memunculkan Home yang berisi leftbar, rightbar, dan mainpost */}
     </div>
   );
 }
