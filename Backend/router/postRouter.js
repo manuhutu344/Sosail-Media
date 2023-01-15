@@ -47,7 +47,7 @@ router.put('/update/post/:id', verifytoken, async(req, res)=>{
 router.put('/:id/like', verifytoken,async(req, res)=>{
     try {
     const post = await Post.findById(req.params.id)
-    if(!post.like.includes(req.body.user)){
+    if(!post.like.includes(req.user.id)){
         if(post.dislike.includes(req.user.id)){
             await post.updateOne({$pull:{dislike:req.user.id}})
         }
