@@ -83,9 +83,7 @@ function Leftbar() {
     </div>
     <div>
     {post.map((item)=>(
-      item.map((image)=>(
-        <img src={image.image} className='exploreimage' alt='' />
-      ))
+        <img src={item.image} className='exploreimage' alt='' />
     ))}
 
     </div>

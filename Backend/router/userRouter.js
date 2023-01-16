@@ -96,7 +96,8 @@ router.get('/flw/:id', verifytoken, async(req, res)=>{
                 return Post.find({user:item})
             })
         )
-        res.status(200).json(followersPost)
+        const userPost = await Post.find({user:user._id})
+        res.status(200).json(userPost.concat(...followersPost))
     } catch (error) {
         return res.status(500).json('error di internal get flw id')
     }

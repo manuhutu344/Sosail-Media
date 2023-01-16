@@ -34,9 +34,7 @@ function MainPost() {
     <div className='mainPostContainer'>
     <ContentPost />
     {post.map((item)=>(
-      item.map((postdetails)=>(
-        <Post post={postdetails} />
-      ))
+        <Post post={item} />
   ))}
     </div>
   )
