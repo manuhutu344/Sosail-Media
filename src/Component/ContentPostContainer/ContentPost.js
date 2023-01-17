@@ -5,6 +5,7 @@ import emoji from '../assets/cat-face.png'
 import Iconvideo from '../assets/video.png'
 import './ContentPost.css'
 import { useSelector } from 'react-redux'
+import app from '../../firebase'
 
 function ContentPost() {
   const userDetails = useSelector((state)=>state.user)
@@ -12,6 +13,7 @@ function ContentPost() {
   console.log(user)
   let id = user.other._id
   const [file, setfile] = useState(null)
+  console.log(file)
   return (
     <div>
     <div className='contentUploadContainer'>
@@ -23,7 +25,7 @@ function ContentPost() {
     <div>
     <label htmlFor='file'>
     <img src={imageIcon} className='icons' alt='' />
-    <input type='file' name='file' id='file' style={{display:'none'}} />
+    <input type='file' name='file' id='file' style={{display:'none'}} onChange={(e)=>setfile(e.target.files[0])}/>
     </label>
     <img src={emoji} className='icons' alt='' />
     <label htmlFor='file2'>
