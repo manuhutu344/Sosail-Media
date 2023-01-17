@@ -12,8 +12,8 @@ function ContentPost() {
   let user = userDetails.user
   console.log(user)
   let id = user.other._id
-  const [file, setfile] = useState(null)
-  console.log(file)
+  const [file, setfile] = useState('')
+  console.log(file.name)
   return (
     <div>
     <div className='contentUploadContainer'>
