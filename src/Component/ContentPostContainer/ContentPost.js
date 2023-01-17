@@ -26,7 +26,10 @@ function ContentPost() {
     <input type='file' name='file' id='file' style={{display:'none'}} />
     </label>
     <img src={emoji} className='icons' alt='' />
+    <label htmlFor='file2'>
     <img src={Iconvideo} className='icons' alt='' />
+    <input type='file' name='file2' id='file2' style={{display:'none'}} />
+    </label>
     <button style={{height:"27px" ,marginRight:"12px",marginTop:"40px", paddingLeft:"21px" , paddingRight:"21px" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"black" , color:"white" , borderRadius:"5px" , cursor:"pointer", marginLeft:'280px', marginBottom:'12px'}}>Posting</button>
     </div>
     </div>
