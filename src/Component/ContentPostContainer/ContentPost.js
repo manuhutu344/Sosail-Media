@@ -15,6 +15,9 @@ function ContentPost() {
   let id = user.other._id
   const [file, setfile] = useState(null)
   const [file2, setfile2] = useState(null)
+  const [title, setTitle] = useState('')
+
+  const accessToken = user.accessToken
   console.log(file?.name)
   const handlePost = (e)=>{
     e.preventDefault()
@@ -45,7 +48,7 @@ function ContentPost() {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log('File available at', downloadURL);
+      fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, image:downloadURL, video: ''})})
     });
   }
 );}else if(file2 !== null){
@@ -75,10 +78,12 @@ function ContentPost() {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log('Video File', downloadURL);
+      fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:downloadURL, image:''})})
     });
   }
 );
+}else{
+  fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:'', image:''})})
 }
   }
   return (
@@ -86,7 +91,7 @@ function ContentPost() {
     <div className='contentUploadContainer'>
     <div style={{display: 'flex', alignItems: 'center', padding: 10}}>
     <img src={`${user.other.profile}`} className='profileimage' alt='' />
-    <input type='text' className='contentWritingpart' placeholder='Apa Yang Anda Pikirkan Hari Ini' />
+    <input type='text' className='contentWritingpart' placeholder='Apa Yang Anda Pikirkan Hari Ini' onChange={(e)=>setTitle(e.target.value)}/>
     </div>
     <div style={{display: 'flex', marginLeft: '5px'}}>
     <div>

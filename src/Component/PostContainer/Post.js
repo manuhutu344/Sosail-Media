@@ -86,7 +86,11 @@ function Post({post}) {
     <img src={More} className='moreicons' alt='' />
     </div>
     <p style={{textAlign: 'start', width: '96%', marginLeft:10, marginTop:0}}>{post.title}</p>
-    <img src={post.image} className='PostImages' alt='' />
+    {post.image !== '' ?
+    <img src={post.image} className='PostImages' alt='' />:post.video !== '' ? <video width='750' height='500' controls>
+    <source src={`${post.video}`} type='video/mp4' />
+    </video> : ''
+  }
     <div style={{display: 'flex'}}>
     <div style={{display: 'flex', marginLeft: '10px'}}>
     <div style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}>
