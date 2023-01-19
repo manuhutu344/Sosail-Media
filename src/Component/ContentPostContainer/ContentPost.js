@@ -95,7 +95,8 @@ function ContentPost() {
     <input type='text' className='contentWritingpart' placeholder='Apa Yang Anda Pikirkan Hari Ini' onChange={(e)=>setTitle(e.target.value)}/>
     </div>
     <div style={{marginLeft: '5px'}}>
-    <img src={imagePre} style={{width:'400px', height:'100px'}} alt='' />
+    <img src={imagePre} style={{width:'410px', height:'250px', objectFit:'cover'}} alt='' />
+    <div style={{display:'flex', justifyContent:'space-between'}}>
     <div>
     <label htmlFor='file'>
     <img src={imageIcon} className='icons' alt='' />
@@ -106,6 +107,7 @@ function ContentPost() {
     <img src={Iconvideo} className='icons' alt='' />
     <input type='file' name='file2' id='file2' style={{display:'none'}} onChange={(e)=>[setfile2(e.target.files[0]), setVideoPre(URL.createObjectURL(e.target.files[0]))]}/>
     </label>
+    </div>
     <button style={{height:"27px" ,marginRight:"12px",marginTop:"40px", paddingLeft:"21px" , paddingRight:"21px" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"black" , color:"white" , borderRadius:"5px" , cursor:"pointer", marginLeft:'280px', marginBottom:'12px'}}onClick={handlePost}>Posting</button>
     </div>
     </div>
