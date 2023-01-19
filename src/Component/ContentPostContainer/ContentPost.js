@@ -16,7 +16,8 @@ function ContentPost() {
   const [file, setfile] = useState(null)
   const [file2, setfile2] = useState(null)
   const [title, setTitle] = useState('')
-
+  const [imagePre, setImagePre] = useState(null)
+  const [videoPre, setVideoPre] = useState(null)
   const accessToken = user.accessToken
   console.log(file?.name)
   const handlePost = (e)=>{
@@ -93,16 +94,17 @@ function ContentPost() {
     <img src={`${user.other.profile}`} className='profileimage' alt='' />
     <input type='text' className='contentWritingpart' placeholder='Apa Yang Anda Pikirkan Hari Ini' onChange={(e)=>setTitle(e.target.value)}/>
     </div>
-    <div style={{display: 'flex', marginLeft: '5px'}}>
+    <div style={{marginLeft: '5px'}}>
+    <img src={imagePre} style={{width:'400px', height:'100px'}} alt='' />
     <div>
     <label htmlFor='file'>
     <img src={imageIcon} className='icons' alt='' />
-    <input type='file' name='file' id='file' style={{display:'none'}} onChange={(e)=>setfile(e.target.files[0])}/>
+    <input type='file' name='file' id='file' style={{display:'none'}} onChange={(e)=>[setfile(e.target.files[0]), setImagePre(URL.createObjectURL(e.target.files[0]))]} />
     </label>
     <img src={emoji} className='icons' alt='' />
     <label htmlFor='file2'>
     <img src={Iconvideo} className='icons' alt='' />
-    <input type='file' name='file2' id='file2' style={{display:'none'}} onChange={(e)=>setfile2(e.target.files[0])}/>
+    <input type='file' name='file2' id='file2' style={{display:'none'}} onChange={(e)=>[setfile2(e.target.files[0]), setVideoPre(URL.createObjectURL(e.target.files[0]))]}/>
     </label>
     <button style={{height:"27px" ,marginRight:"12px",marginTop:"40px", paddingLeft:"21px" , paddingRight:"21px" , paddingTop:7 , paddingBottom:7 , border:"none" , backgroundColor:"black" , color:"white" , borderRadius:"5px" , cursor:"pointer", marginLeft:'280px', marginBottom:'12px'}}onClick={handlePost}>Posting</button>
     </div>
