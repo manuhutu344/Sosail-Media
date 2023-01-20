@@ -49,7 +49,10 @@ function ContentPost() {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, image:downloadURL, video: ''})})
+      fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, image:downloadURL, video: ''})}).then((data)=>{
+        alert('Gambar anda telah berhasil diupload')
+        window.location.reload(true)
+      })
     });
   }
 );}else if(file2 !== null){
@@ -79,12 +82,18 @@ function ContentPost() {
     // Handle successful uploads on complete
     // For instance, get the download URL: https://firebasestorage.googleapis.com/...
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:downloadURL, image:''})})
+      fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:downloadURL, image:''})}).then((data)=>{
+        alert('video anda telah berhasil diupload')
+        window.location.reload(true)
+      })
     });
   }
 );
 }else{
-  fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:'', image:''})})
+  fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:'', image:''})}).then((data)=>{
+    alert('post anda telah berhasil diupload')
+    window.location.reload(true)
+  })
 }
   }
   return (
