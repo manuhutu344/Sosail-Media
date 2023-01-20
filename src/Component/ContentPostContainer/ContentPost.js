@@ -91,7 +91,7 @@ function ContentPost() {
 );
 }else{
   fetch(`http://localhost:9000/post/user/post`, {method:'POST', headers:{'Content-Type':'application/JSON', token:accessToken}, body:JSON.stringify({title:title, video:'', image:''})}).then((data)=>{
-    alert('post anda telah berhasil diupload')
+    alert('post kata-kata anda telah berhasil diupload')
     window.location.reload(true)
   })
 }
