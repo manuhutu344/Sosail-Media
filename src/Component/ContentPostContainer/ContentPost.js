@@ -95,7 +95,7 @@ function ContentPost() {
     <input type='text' className='contentWritingpart' placeholder='Apa Yang Anda Pikirkan Hari Ini' onChange={(e)=>setTitle(e.target.value)}/>
     </div>
     <div style={{marginLeft: '5px'}}>
-    {imagePre !== null ? <img src={imagePre} style={{width:'410px', height:'250px', objectFit:'cover'}} alt='' /> : videoPre !== null ? <video className="PostImages" width="500" height="500" controls >
+    {imagePre !== null ? <img src={imagePre} style={{width:'410px', height:'250px', objectFit:'cover', borderRadius:'10px'}} alt='' /> : videoPre !== null ? <video className="PostImages" width="500" height="500" controls >
     <source src={videoPre} type="video/mp4"/>
    </video> : ''
     }
