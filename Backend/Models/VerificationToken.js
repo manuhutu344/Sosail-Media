@@ -13,7 +13,8 @@ const VerificationTokenSchema = new mongoose.Schema({
     },
     createAt:{
         type: String,
-        required: true
+        required: true,
+        default:Date.now()
     },
 })
 VerificationTokenSchema.pre('save', async function(next){
