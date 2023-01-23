@@ -46,7 +46,7 @@ body('phonenumber').isLength({ min: 10 }),
     })
     verificationToken.save()
     await user.save()
-    var transport = nodemailer.createTransport({
+    const transport = nodemailer.createTransport({
         host: "smtp.mailtrap.io",
         port: 2525,
         auth: {
@@ -54,6 +54,12 @@ body('phonenumber').isLength({ min: 10 }),
           pass: process.env.PASS
         }
       });
+      transport.sendMail({
+        from:'SosialMediaAjah@gmail.com',
+        to:user.email,
+        subject:'Verifikasi email berhasil',
+        html:`<h1>OTP CODE ${OTP}</h1>`
+      })
     res.status(200).json({user, accessToken})
 })
 
