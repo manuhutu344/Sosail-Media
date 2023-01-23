@@ -57,8 +57,8 @@ body('phonenumber').isLength({ min: 10 }),
       transport.sendMail({
         from:'SosialMediaAjah@gmail.com',
         to:user.email,
-        subject:'Verifikasi email berhasil',
-        html:`<h1>OTP CODE ${OTP}</h1>`
+        subject:'Verifikasi email anda dengan OTP',
+        html:`<h1>Your OTP CODE ${OTP}</h1>`
       })
     res.status(200).json({Status:'Pending' ,msg:'Tolong Cek Email Anda', user:user._id})
 })

@@ -11,7 +11,7 @@ const VerificationTokenSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    createAt:{
+    createdAt:{
         type: String,
         required: true,
         default:Date.now()
