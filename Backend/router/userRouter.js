@@ -58,9 +58,49 @@ body('phonenumber').isLength({ min: 10 }),
         from:'SosialMediaAjah@gmail.com',
         to:user.email,
         subject:'Verifikasi email anda dengan OTP',
-        html:`<h1>Your OTP CODE ${OTP}</h1>`
+        html:`<h1>Code OTP Anda ${OTP}</h1>`
       })
     res.status(200).json({Status:'Pending' ,msg:'Tolong Cek Email Anda', user:user._id})
+})
+
+router.post('/verify/email', async(req,res)=>{
+    const {user, OTP} = req.body
+    const mainuser = await User.findById(user)
+    if(!mainuser) return res.status(400).json('User Ini Tidak Di Temukan')
+    if(mainuser.verifed === true){
+        return res.status(400).json('User Sudah Terverifikasi')
+    }
+    const token = await VerificationToken.findOne({user:mainuser._id})
+    if(!token){
+        return res.status(400).json('Maaf Token ini Tidak Di Temukan')
+    }
+    const isMatch = await bcrypt.compareSync(OTP, token.token)
+    if(!isMatch){
+        return res.status(400).json('Token Ini Tidak Valid')
+    }
+    mainuser.verifed = true
+    await VerificationToken.findByIdAndDelete(token._id)
+    await mainuser.save()
+    const accessToken = jwt.sign({
+        id:mainuser._id,
+        username:mainuser.username
+    }, JWTSEC)
+    const {password, ...others} = mainuser._doc
+    const transport = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASS
+        }
+      });
+      transport.sendMail({
+        from:'SosialMediaAjah@gmail.com',
+        to:mainuser.email,
+        subject:'Success Memverifikasi Email Anda',
+        html:`Sekarang Anda Telah Login Ke Sosial Media Ajah`
+      })
+      return res.status(200).json({others, accessToken})
 })
 
 router.post('/login',
