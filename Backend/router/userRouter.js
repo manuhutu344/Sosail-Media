@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { verifytoken } = require('./verifytoken')
 const Post = require('../Models/Post')
+const { generateOTP } = require('./Extra/mail')
+const VerificationToken = require('../Models/VerificationToken')
 const JWTSEC = '#2@!@$ndja45883 r7##'
 
 router.post('/create/user',
@@ -36,6 +38,12 @@ body('phonenumber').isLength({ min: 10 }),
         id:user._id,
         username:user.username
     }, JWTSEC)
+    const OTP = generateOTP()
+    const verificationToken = await VerificationToken.create({
+        user:user._id,
+        token:OTP
+    })
+    verificationToken.save()
     await user.save()
     res.status(200).json({user, accessToken})
 })
