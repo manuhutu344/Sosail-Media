@@ -60,7 +60,7 @@ body('phonenumber').isLength({ min: 10 }),
         subject:'Verifikasi email berhasil',
         html:`<h1>OTP CODE ${OTP}</h1>`
       })
-    res.status(200).json({user, accessToken})
+    res.status(200).json({msg:'Tolong Cek Email Anda'})
 })
 
 router.post('/login',
