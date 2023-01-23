@@ -8,6 +8,7 @@ const Post = require('../Models/Post')
 const { generateOTP } = require('./Extra/mail')
 const VerificationToken = require('../Models/VerificationToken')
 const JWTSEC = '#2@!@$ndja45883 r7##'
+const nodemailer = require('nodemailer')
 
 router.post('/create/user',
 body('email').isEmail(),
@@ -45,6 +46,14 @@ body('phonenumber').isLength({ min: 10 }),
     })
     verificationToken.save()
     await user.save()
+    var transport = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASS
+        }
+      });
     res.status(200).json({user, accessToken})
 })
 
