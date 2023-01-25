@@ -9,6 +9,8 @@ const { generateOTP } = require('./Extra/mail')
 const VerificationToken = require('../Models/VerificationToken')
 const JWTSEC = '#2@!@$ndja45883 r7##'
 const nodemailer = require('nodemailer')
+const ResetToken = require('../Models/ResetToken')
+const crypto = require('crypto')
 
 router.post('/create/user',
 body('email').isEmail(),
@@ -130,6 +132,39 @@ async(req, res)=>{
 } catch (error) {
     res.status(500).json('error')
 }
+})
+
+router.post('/forgot/password', async(req, res)=>{
+    const {email} = req.body
+    const user = await User.findOne({email:email})
+    if(!user){
+        return res.status(400).json('User ini tidak ditemukan')
+    }
+    const token = await ResetToken.findOne({user:user._id})
+    if(token){
+        return res.status(400).json('Tidak bisa meminta token')
+    }
+    const RandomTxt = crypto.randomBytes(20).toString('hex')
+    const resetToken = new ResetToken({
+        user:user._id,
+        token:RandomTxt
+    })
+    await resetToken.save()
+    const transport = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASS
+        }
+      });
+      transport.sendMail({
+        from:'SosialMediaAjah@gmail.com',
+        to:user.email,
+        subject:'Reset Token Anda',
+        html:`http://localhost:3005/reset/password?token=${RandomTxt}&_id=${user._id}`
+      })
+      return res.status(200).json('Silahkan cek email anda')
 })
 
 router.put('/following/:id', verifytoken,async(req, res)=>{
