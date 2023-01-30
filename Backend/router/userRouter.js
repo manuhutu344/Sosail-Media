@@ -168,44 +168,42 @@ router.post('/forgot/password', async(req, res)=>{
 })
 
 router.put('/reset/password' , async(req , res)=>{
-    const {token , _id} = req.query
-    if(!token || !_id){
-        return res.status(400).json("Req Tidak Valid")
+   const {token, _id} = req.query
+   if(!token || !_id){
+    return res.status(400).json('req tidak valid')
+   }
+   const user = await User.findOne({_id:_id})
+   if(!user){
+    return res.status(400).json('user tidak ditemukan')
+   }
+   const resetToken = await ResetToken.findOne({user:user._id})
+   if(!resetToken){
+    return res.status(400).json('resettoken tidak ditemukan')
+   }
+   console.log(resetToken.token)
+   const isMatch = await bcrypt.compareSync(token, resetToken.token)
+   if(!isMatch){
+    return res.status(400).json('token tidak valid')
+   }
+   const {password} = req.body
+   const secpass = await bcrypt.hash(password, 10)
+   user.password = secpass
+   await user.save()
+   const transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: process.env.USER,
+      pass: process.env.PASS
     }
-    const user = await User.findOne({_id:_id})
-    if(!user){
-        return res.status(400).json("user Tidak Ditemukan")
-    }
-    const resetToken = await ResetToken.findOne({user:user._id})
-    if(!resetToken){
-        return res.status(400).json("Reset Token Tidak Ditemukan")
-    }
-    console.log(resetToken.token)
-    const isMatch = await bcrypt.compareSync(token , resetToken.token)
-    if(!isMatch){
-        return res.status(400).json("Token Tidak Valid")
-    }
-
-    const {password} = req.body
-    // const salt = await bcrypt.getSalt(10);
-    const secpass = await bcrypt.hash(password , 10)
-    user.password = secpass;
-    await user.save();
-    const transport = nodemailer.createTransport({
-        host: "smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-          user: process.env.USER,
-          pass: process.env.PASS
-        }
-      });
-      transport.sendMail({
-        from:'SosialMediaAjah@gmail.com',
-        to:user.email,
-        subject:'Reset Passord Anda Berhasil',
-        html:`Sekarang Anda Dapat Login Dengan Password Baru`
-      })
-      return res.status(200).json('Email Telah Terkirim')
+  });
+  transport.sendMail({
+    from:'SosialMediaAjah@gmail.com',
+    to:user.email,
+    subject:'Password anda telah di reset',
+    html:`Sekarang Anda Dapat menggunakan password baru`
+  })
+  return res.status(200).json('Silahkan cek email anda')
 })
 
 
