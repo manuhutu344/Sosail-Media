@@ -170,20 +170,20 @@ router.post('/forgot/password', async(req, res)=>{
 router.put('/reset/password' , async(req , res)=>{
     const {token , _id} = req.query
     if(!token || !_id){
-        return res.status(400).json("Invalid req")
+        return res.status(400).json("Req Tidak Valid")
     }
     const user = await User.findOne({_id:_id})
     if(!user){
-        return res.status(400).json("user not found")
+        return res.status(400).json("user Tidak Ditemukan")
     }
     const resetToken = await ResetToken.findOne({user:user._id})
     if(!resetToken){
-        return res.status(400).json("Reset token is not found")
+        return res.status(400).json("Reset Token Tidak Ditemukan")
     }
     console.log(resetToken.token)
     const isMatch = await bcrypt.compareSync(token , resetToken.token)
     if(!isMatch){
-        return res.status(400).json("Token is not valid")
+        return res.status(400).json("Token Tidak Valid")
     }
 
     const {password} = req.body
