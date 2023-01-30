@@ -167,7 +167,7 @@ router.post('/forgot/password', async(req, res)=>{
       return res.status(200).json('Silahkan cek email anda')
 })
 
-router.put("/reset/password" , async(req , res)=>{
+router.put('/reset/password' , async(req , res)=>{
     const {token , _id} = req.query
     if(!token || !_id){
         return res.status(400).json("Invalid req")
