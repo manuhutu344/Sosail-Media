@@ -200,13 +200,12 @@ router.put('/reset/password' , async(req , res)=>{
         }
       });
       transport.sendMail({
-        from:"SosialMediaAjah@gmail.com",
+        from:'SosialMediaAjah@gmail.com',
         to:user.email,
-        subject:"Password Berhasil Di Reset",
+        subject:'Reset Passord Anda Berhasil',
         html:`Sekarang Anda Dapat Login Dengan Password Baru`
       })
-
-      return res.status(200).json("Email Sudah Terkirim")
+      return res.status(200).json('Email Telah Terkirim')
 })
 
 
