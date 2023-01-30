@@ -12,7 +12,7 @@ const ResetTokenSchema = new mongoose.Schema({
         required: true
     },
     createAt:{
-        type: String,
+        type: Date,
         required: true,
         default: Date.now()
     },
