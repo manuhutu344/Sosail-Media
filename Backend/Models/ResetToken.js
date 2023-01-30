@@ -13,7 +13,8 @@ const ResetTokenSchema = new mongoose.Schema({
     },
     createAt:{
         type: String,
-        required: true
+        required: true,
+        default: Date.now()
     },
 })
 ResetTokenSchema.pre('save', async function(next){
