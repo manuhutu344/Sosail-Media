@@ -167,6 +167,46 @@ router.post('/forgot/password', async(req, res)=>{
       return res.status(200).json('Silahkan cek email anda')
 })
 
+router.put('/reset/password', async(req, res)=>{
+    const {token , _id} = req.query
+    if(!token || _id){
+        return res.status(400).json('Request Tidak Valid')
+    }
+    const user = await User.findOne({_id:_id})
+    if(!user){
+        return res.status(400).json('User Ini Tidak Ditemukan')
+    }
+    const resetToken = await ResetToken.findOne({user:user._id})
+    if(!resetToken){
+        return res.status(400).json('Reset Token Tidak Berhasil')
+    }
+    const isMatch = await bcrypt.compareSync(token, resetToken.token)
+    if(!isMatch){
+        return res.status(400).json('Token Tidak Valid')
+    }
+    const {password} = req.password
+    const salt = await bcrypt.genSalt(10)
+    const secpass = await bcrypt.hash(password, salt)
+    user.password = secpass
+    await user.save()
+
+    const transport = nodemailer.createTransport({
+        host: "smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASS
+        }
+      });
+      transport.sendMail({
+        from:'SosialMediaAjah@gmail.com',
+        to:user.email,
+        subject:'Password anda telah terreset',
+        html: `Sekarang anda dapat login dengan password baru`
+      })
+      return res.status(200).json('Silahkan cek email anda')
+})
+
 router.put('/following/:id', verifytoken,async(req, res)=>{
     if(req.params.id !== req.body.user){
         const user = await User.findById(req.params.id)
