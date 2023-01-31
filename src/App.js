@@ -16,8 +16,8 @@ function App() {
     <Routes>
     <Route path='/' element={<Home />}></Route>
     <Route path='/profil/:id' element={<Profile />}></Route>
-    <Route path='/login' element={user !== null ? <Navigate to={'/'} /> : <Login />}></Route>
-    <Route path='/signup' element={ user !== null ? <Navigate to={'/'} /> : <Signup />}></Route>
+    <Route path='/login' element={ <Login />}></Route>
+    <Route path='/signup' element={  <Signup />}></Route>
     </Routes>
     </BrowserRouter>
 {/* Memunculkan Home yang berisi leftbar, rightbar, dan mainpost */}
