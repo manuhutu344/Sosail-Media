@@ -87,7 +87,7 @@ router.post('/verify/email', async(req,res)=>{
         id:mainuser._id,
         username:mainuser.username
     }, JWTSEC)
-    const {password, ...others} = mainuser._doc
+    const {password, ...other} = mainuser._doc
     const transport = nodemailer.createTransport({
         host: "smtp.mailtrap.io",
         port: 2525,
@@ -102,7 +102,7 @@ router.post('/verify/email', async(req,res)=>{
         subject:'Success Memverifikasi Email Anda',
         html:`Sekarang Anda Telah Login Ke Sosial Media Ajah`
       })
-      return res.status(200).json({others, accessToken})
+      return res.status(200).json({other, accessToken})
 })
 
 router.post('/login',
