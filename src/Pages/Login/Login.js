@@ -25,7 +25,7 @@ function Login() {
     <input type='email' nama='' id='email' placeholder='Email Anda' onChange={(e)=>setEmail(e.target.value)} className='inputText'/>
     <input type='password' nama='' id='password' placeholder='Masukan Password Anda' onChange={(e)=>setPassword(e.target.value)} className='inputText' />
     <button className='btnforsignup' onClick={handleClick}>Masuk</button>
-    <Link to='/signup'>
+    <Link to='/forgot/password'>
     <p style={{textAlign:'start', marginLeft:'30.6%'}}>Lupa Password ?</p>
     </Link>
     <Link to='/signup'>
