@@ -17,7 +17,6 @@ function Signup() {
   const [file, setFile] = useState(null)
   const userDetails = user.user
   const navigator = useNavigate()
-  console.log(user)
   const handleClick = (e)=>{
     e.preventDefault()
     const fileName = new Date().getTime() + file?.name
@@ -49,6 +48,10 @@ function Signup() {
       signup(dispatch,{email, password, username, phonenumber, profile:downloadURL})
       })
     });
+  }
+  console.log(userDetails?.Status)
+  if(userDetails?.Status === 'Pending'){
+    navigator('/verify/email')
   }
   return (
     <div className='mainContainerForsignup'>
