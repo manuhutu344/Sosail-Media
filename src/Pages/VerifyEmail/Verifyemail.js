@@ -26,7 +26,7 @@ export default function Verifyemail() {
                     <input type={"number"} placeholder="Masukan OTP anda" style={{flex:1 , minWidth:"40px" , margin:"10px 0px" , padding:"10px", borderRadius:"10px"}} onChange={(e)=> setOTP(e.target.value)}/>
                     <button style={{width:"40%" , border:"none" , padding:"10px 20px" , backgroundColor:"white" , color:"black" , borderRadius:"10px" , margin:"20px 0px" , cursor:"pointer"}} onClick={handleOTP}>Konfirmasi OTP Anda</button>
                     <Link to={"/register"}>
-                       <p style={{ textDecoration:"none" , color:"white" , cursor:"pointer" , marginRight:"190px" , fontSize:"14px"}}>Check your email to get a OTP</p>
+                       <p style={{ textDecoration:"none" , color:"white" , cursor:"pointer" , marginRight:"190px" , fontSize:"14px"}}>Cek Email Anda Untuk MEndapatkan OTPnya</p>
                     </Link>
          
                 </form>
