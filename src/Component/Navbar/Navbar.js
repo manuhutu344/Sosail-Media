@@ -11,9 +11,9 @@ import { logout } from '../ReduxContainer/userReducer'
 
 function Navbar() {
   const userDetails = useSelector((state)=>state.user)
-  let user = userDetails.user
+  let user = userDetails?.user
   console.log(user)
-  let id = user.other._id
+  let id = user?.other?._id
   const dispatch = useDispatch()
   const handleLogout = ()=>{
     dispatch(logout())
@@ -35,8 +35,8 @@ function Navbar() {
 
     <Link to={`/profil/${id}`}>
     <div style={{display: 'flex', alignItems: 'center'}}>
-    <img src={`${user.other.profile}`} className='Profileimage' alt='' />
-    <p style={{marginLeft: '5px'}}>{user.other.username}</p>
+    <img src={`${user?.other?.profile}`} className='Profileimage' alt='' />
+    <p style={{marginLeft: '5px'}}>{user?.other?.username}</p>
     </div>
     </Link>
     <div style={{marginRight: '30px', marginLeft: '20px', cursor: 'pointer'}} onClick={handleLogout}>
