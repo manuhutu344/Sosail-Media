@@ -9,7 +9,7 @@ function MainPost() {
   const userDetails = useSelector((state)=>state.user)
   let user = userDetails.user
   console.log(user)
-  let id = user.other._id
+  let id = user?.other?._id
   const accesstoken = user.accessToken
   console.log(accesstoken)
   const [post, setPost] = useState([])
