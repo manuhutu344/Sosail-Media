@@ -10,9 +10,9 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 
 function ContentPost() {
   const userDetails = useSelector((state)=>state.user)
-  let user = userDetails.user
+  let user = userDetails?.user
   console.log(user)
-  let id = user.other._id
+  let id = user?.other?._id
   const [file, setfile] = useState(null)
   const [file2, setfile2] = useState(null)
   const [title, setTitle] = useState('')
