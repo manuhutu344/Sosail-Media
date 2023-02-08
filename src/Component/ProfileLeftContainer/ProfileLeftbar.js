@@ -27,8 +27,8 @@ function ProfileLeftbar() {
     }
     getuser()
   }, [])
-  let followersCounter = users ?.Followers ?.length
-  let followingCounter = users ?.Following ?.length
+  let followersCounter = users?.Followers?.length
+  let followingCounter = users?.Following?.length
   console.log(users)
   const [Followinguser, setFollowinguser] = useState([])
   useEffect(() => {
